@@ -1,5 +1,5 @@
 ﻿
-namespace com.faith.GameplayService
+namespace com.faith.gameplay_service
 {
     using UnityEngine;
 

@@ -1,7 +1,6 @@
-﻿namespace com.faith.GameplayService {
+﻿namespace com.faith.gameplay_service {
     using System.Collections;
     using UnityEngine;
-    using UnityEngine.Events;
 
     public class DeviceInfoManager : MonoBehaviour
     {
