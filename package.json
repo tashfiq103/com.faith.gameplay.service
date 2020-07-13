@@ -6,7 +6,7 @@
     "author": "Muhammad Tashfiqul Bari",
     "description": "Gameplay service for game mechanincs",
     "dependencies":{
-        "com.unity.textmeshpro": "2.0.1"
+        
     },
     "repository":{
         "type":"git",
