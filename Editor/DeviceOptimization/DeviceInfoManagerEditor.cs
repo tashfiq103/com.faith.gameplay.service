@@ -1,4 +1,4 @@
-﻿namespace com.faith.gameplay_service
+﻿namespace com.faith.gameplay.service
 {
     using UnityEditor;
     using UnityEngine;

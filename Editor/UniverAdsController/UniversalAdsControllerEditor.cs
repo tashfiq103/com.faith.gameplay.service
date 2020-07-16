@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-namespace com.faith.gameplay_service
+﻿namespace com.faith.gameplay.service
 {
     using UnityEngine;
     using UnityEditor;
