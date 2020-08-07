@@ -1,5 +1,5 @@
 {
-    "name": "com.faith.gameplayservice.Editor",
+    "name": "com.faith.gameplay.service.Editor",
     "references": [
         "GUID:e3fa1e33a0182a1439df551d53282c21"
     ],
