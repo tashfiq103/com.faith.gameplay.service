@@ -7,9 +7,9 @@
 
         #region Custom Variables
 
-        public delegate void OnTouchDownEvent(Vector3 t_TouchPosition);
-        public delegate void OnTouchEvent(Vector3 t_TouchPosition);
-        public delegate void OnTouchUpEvent(Vector3 t_TouchPosition);
+        public delegate void OnTouchDownEvent(Vector3 touchPosition, int touchIndex);
+        public delegate void OnTouchEvent(Vector3 touchPosition, int touchIndex);
+        public delegate void OnTouchUpEvent(Vector3 touchPosition, int touchIndex);
 
         #endregion
 
@@ -25,8 +25,6 @@
 
         #region Private Variables
 
-        private bool m_IsTouchControllerRunning = false;
-
         private Touch m_ActiveTouch;
 
         #endregion
@@ -35,6 +33,8 @@
 
         private void Awake()
         {
+            enabled = false;
+
             if (Instance == null)
             {
                 Instance = this;
@@ -49,10 +49,9 @@
 
         private void Update()
         {
-            if (m_IsTouchControllerRunning)
-            {
+            
                 TouchController();
-            }
+            
         }
 
         #endregion
@@ -66,51 +65,52 @@
 
             if (Input.GetMouseButtonDown(0))
             {
-                OnTouchDown?.Invoke(Input.mousePosition);
+                OnTouchDown?.Invoke(Input.mousePosition,0);
             }
 
             if (Input.GetMouseButton(0))
             {
 
-                OnTouch?.Invoke(Input.mousePosition);
+                OnTouch?.Invoke(Input.mousePosition, 0);
             }
 
             if (Input.GetMouseButtonUp(0))
             {
 
-                OnTouchUp?.Invoke(Input.mousePosition);
+                OnTouchUp?.Invoke(Input.mousePosition,0);
             }
 
-
 #elif UNITY_ANDROID || UNITY_IOS
-       if (Input.touchCount > 0) {
 
-                m_ActiveTouch = Input.GetTouch(0);
+            Touch[] activeTouches = Input.touches;
+            int touchCount = activeTouches.Length;
+            for (int i = 0; i < touchCount; i++) {
 
-                switch (m_ActiveTouch.phase)
+                switch (activeTouches[i].phase)
                 {
 
                     case TouchPhase.Began:
-                        OnTouchDown?.Invoke(m_ActiveTouch.position);
+                        OnTouchDown?.Invoke(m_ActiveTouch.position, i);
                         break;
 
                     case TouchPhase.Stationary:
-                        OnTouch?.Invoke(m_ActiveTouch.position);
+                        OnTouch?.Invoke(m_ActiveTouch.position, i);
                         break;
 
                     case TouchPhase.Moved:
-                        OnTouch?.Invoke(m_ActiveTouch.position);
+                        OnTouch?.Invoke(m_ActiveTouch.position, i);
                         break;
 
                     case TouchPhase.Ended:
-                        OnTouchUp?.Invoke(m_ActiveTouch.position);
+                        OnTouchUp?.Invoke(m_ActiveTouch.position, i);
                         break;
 
                     case TouchPhase.Canceled:
-                        OnTouchUp?.Invoke(m_ActiveTouch.position);
+                        OnTouchUp?.Invoke(m_ActiveTouch.position, i);
                         break;
                 }
             }
+
 #endif
 
         }
@@ -122,13 +122,13 @@
         public void EnableTouchController()
         {
 
-            m_IsTouchControllerRunning = true;
+            enabled = true;
         }
 
         public void DisableTouchController(bool t_ResetTouchEvents = false)
         {
 
-            m_IsTouchControllerRunning = false;
+            enabled = false;
 
             if (t_ResetTouchEvents)
             {
