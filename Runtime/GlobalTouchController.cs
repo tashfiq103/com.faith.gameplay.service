@@ -23,11 +23,6 @@
 
         #endregion
 
-        #region Private Variables
-
-        private Touch m_ActiveTouch;
-
-        #endregion
 
         #region Mono Bheaviour
 
@@ -84,29 +79,30 @@
 
             Touch[] activeTouches = Input.touches;
             int touchCount = activeTouches.Length;
-            for (int i = 0; i < touchCount; i++) {
+            for (int i = 0; i < touchCount; i++)
+            {
 
                 switch (activeTouches[i].phase)
                 {
 
                     case TouchPhase.Began:
-                        OnTouchDown?.Invoke(m_ActiveTouch.position, i);
+                        OnTouchDown?.Invoke(activeTouches[i].position, i);
                         break;
 
                     case TouchPhase.Stationary:
-                        OnTouch?.Invoke(m_ActiveTouch.position, i);
+                        OnTouch?.Invoke(activeTouches[i].position, i);
                         break;
 
                     case TouchPhase.Moved:
-                        OnTouch?.Invoke(m_ActiveTouch.position, i);
+                        OnTouch?.Invoke(activeTouches[i].position, i);
                         break;
 
                     case TouchPhase.Ended:
-                        OnTouchUp?.Invoke(m_ActiveTouch.position, i);
+                        OnTouchUp?.Invoke(activeTouches[i].position, i);
                         break;
 
                     case TouchPhase.Canceled:
-                        OnTouchUp?.Invoke(m_ActiveTouch.position, i);
+                        OnTouchUp?.Invoke(activeTouches[i].position, i);
                         break;
                 }
             }
