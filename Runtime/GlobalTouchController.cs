@@ -15,6 +15,8 @@
 
         #region Public Variables
 
+        public bool enableOnAwake;
+
         public static GlobalTouchController Instance;
 
         public OnTouchDownEvent OnTouchDown;
@@ -28,7 +30,7 @@
 
         private void Awake()
         {
-            enabled = false;
+            enabled = enableOnAwake;
 
             if (Instance == null)
             {
